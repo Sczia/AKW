@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Manage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ManageController extends Controller
 {
@@ -70,19 +71,36 @@ class ManageController extends Controller
      */
     public function update(Request $request,$id)
     {
-        $manage = Manage::Find($id);
-        $manage->update(
-            $request->all()
-        );
+       /*  dd($request->file('file')->store('img')); */
+if ($request->has('title')) {
+    $manage = Manage::Find($id);
+    $manage->title=$request->title;
+    $manage->save();
 
-        if($manage->wasChanged()) {
+}
+if ($request->has('file')) {
+
+$file = $request->file('file');
+    $path="img";
+
+    $fileName = 'logo-logo-removebg-preview';
+    if (!file_exists(storage_path($path.'/'.$fileName.'.png'))) {
+        Storage::delete(storage_path($path.'/'.$fileName.'.png'));
+    }
+    $file->storeAs($path, $fileName.'.png');
+
+}
+
+
+
+
+
+
             toast()->success('Success', 'You saved changes')->autoClose(3000)->animation('animate__fadeInRight', 'animate__fadeOutRight')->width('400px');
 
             return redirect()->back();
-        }
-        toast()->info('Info', 'There is no changes')->autoClose(3000)->animation('animate__fadeInRight', 'animate__fadeOutRight')->width('400px');
 
-        return redirect()->route('manage.index');
+
     }
 
     /**

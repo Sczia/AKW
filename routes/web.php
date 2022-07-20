@@ -6,8 +6,10 @@ use App\Http\Controllers\ConfirmController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\ManageController;
+use App\Http\Controllers\SMS;
 use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -56,8 +58,8 @@ Route::delete('admin/contact', [ContactController::class,'destroy']) -> name('co
 
 /* MANAGE */
 Route::get('admin/manage', [ManageController::class,'index']) -> name('manage.index');
-Route::get('admin/manage/update/{id}', [ManageController::class,'update']) -> name('manage.update');
+Route::put('admin/manage/update/{id}', [ManageController::class,'update']) -> name('manage.update');
+Route::post('auth/user', [LoginController::class,'authenticate']) -> name('auth.user');
 
-
-
+Route::get('/sendSmsNotificaition', [SMS::class, 'sendSmsNotificaition']);
 

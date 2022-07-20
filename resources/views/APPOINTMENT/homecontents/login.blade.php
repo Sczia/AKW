@@ -8,13 +8,14 @@
 @section('contents')
 
 <div class=" d-flex justify-content-center align-items-center login-container ">
-    <form class="login-form text-center ">
+    <form class="login-form text-center " action="{{ route('auth.user') }}" method="POST">
+        @csrf
         <h1 class="mb-5 font-weight-light text-uppercase ">Login</h1>
         <div class="form-group ">
-            <input type="text " class="form-control rounded-pill form-control-lg " placeholder="Username ">
+            <input type="text " class="form-control rounded-pill form-control-lg " name="email" placeholder="Username ">
         </div>
         <div class="form-group ">
-            <input type="password " class="form-control rounded-pill form-control-lg " placeholder="Password ">
+            <input type="password " class="form-control rounded-pill form-control-lg " name="password" placeholder="Password ">
         </div>
       {{--   <div class="forgot-link form-group d-flex justify-content-between align-items-center ">
             <div class="form-check ">

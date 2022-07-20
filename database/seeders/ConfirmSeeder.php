@@ -18,6 +18,8 @@ class ConfirmSeeder extends Seeder
         $data = [
 
             'name' => 'Krysia Hernandez',
+            'date' => '22-10-22',
+            'time' => '1:00',
             'email' => 'krysialee023@gmail.com',
             'phone_number' => '09192054322',
             'address' => '158 silangan, St. Brgy. Dayap, Calaan, Laguna',

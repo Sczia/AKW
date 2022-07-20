@@ -2,7 +2,7 @@
     <header class="head my-3 ">
         <nav class="navbar navbar-expand-lg navbar-light head__custom-nav ">
             <a class="navbar-brand d-flex align-items-center " href="# ">
-                <img src="{{ $logo->path }} " alt="website logo ">
+                <img src="{{ asset('./uploads/logo-logo-removebg-preview.png')}} " alt="website logo ">
               <span>{{ $title->title }}</span>
 
             </a>

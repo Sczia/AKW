@@ -18,6 +18,8 @@ class AppointmentSeeder extends Seeder
 
             'name' => 'Krysia Hernandez',
             'email' => 'krysialee023@gmail.com',
+            'date' => '22-10-22',
+            'time' => '1:00',
             'phone_number' => '09192054322',
             'address' => '158 silangan, St. Brgy. Dayap, Calaan, Laguna',
             'message' => 'Hi',

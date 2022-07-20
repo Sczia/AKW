@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             confirmSeeder::class,
             contactSeeder::class,
             manageSeeder::class,
-           
+           UserSeeder::class,
 
 
         ]);

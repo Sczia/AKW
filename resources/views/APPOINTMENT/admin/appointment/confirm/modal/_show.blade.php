@@ -16,12 +16,12 @@
             <div class="modal-body">
                 <table class="table table-hover">
                     <thead>
-                      <tr>
+                        <tr>
 
-                       <h3 class="modal-title text-dark font-weight-bold">INFORMATION</h3>
+                            <h3 class="modal-title text-dark font-weight-bold">INFORMATION</h3>
 
 
-                      </tr>
+                        </tr>
                     </thead>
 
                     <tbody>
@@ -29,30 +29,40 @@
                         <tr>
                             <td class="text-left">Name:</td>
                             <td class="text-left">{{ $appointment->name }}</td>
-                          </tr>
+                        </tr>
 
-                          <tr>
+                        <tr>
+                            <td class="text-left">Date:</td>
+                            <td class="text-left">{{ $appointment->date }}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-left">Time:</td>
+                            <td class="text-left">{{ $appointment->time }}</td>
+                        </tr>
+
+                        <tr>
                             <td class="text-left">Email:</td>
                             <td class="text-left">{{ $appointment->email }}</td>
-                          </tr>
+                        </tr>
 
-                          <tr>
+                        <tr>
                             <td class="text-left">Contact number:</td>
-                            <td class="text-left">{{ $appointment->phone_number}}</td>
-                          </tr>
+                            <td class="text-left">{{ $appointment->phone_number }}</td>
+                        </tr>
 
-                          <tr>
+                        <tr>
                             <td class="text-left">Address:</td>
                             <td class="text-left">{{ $appointment->address }}</td>
-                          </tr>
+                        </tr>
 
-                          <tr>
+                        <tr>
                             <td class="text-left">Message:</td>
-                            <td class="text-left">{{ $appointment->message}}</td>
-                          </tr>
+                            <td class="text-left">{{ $appointment->message }}</td>
+                        </tr>
                     </tbody>
 
-                  </table>
+                </table>
 
 
             </div>

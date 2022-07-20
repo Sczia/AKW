@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\cancel;
+use App\Mail\MailController;
 use App\Mail\TestMail;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 
 class AppointmentController extends Controller
@@ -89,12 +93,26 @@ class AppointmentController extends Controller
 
 
         try {
-            $Appointment = Appointment::where('id', $id)->first()->delete();
-            $details = [
-                'title' => 'Mail from Municipal Jail of Los Banos',
-                'body' => 'Sorry your appointment is not approved, maybe your chosen Dorm is not fit to the given schedule, Kindly wait for the vacancy of the schedule and check our official website for more information. Thank you and Stay safe!'
+            $appointment = Appointment::where('id', $id)->first();
+            $details= [
+                'name' => $appointment->name,
+                'date' => $appointment->date,
+                'time' => $appointment->time,
+                'email' =>  $appointment->email,
+                'number' => $appointment->phone_number,
+                'address' => $appointment->address,
             ];
-            /*Mail::to($Appointment->email)->send(new TestMail($details)); */
+            $data = [
+
+                'api_key' => "2BWiJ9Bke4zGymsjOTS5CaebKki",
+                'api_secret' => "x52BicQo6crbVYufk509UcgxyrfBFJsPoFyxY0kF",
+                'text' => "Hello! I would like to say that your Request Appointment has been cancel, kindly check our website for more schedule Thank you",
+                'to' =>   "63" . Str::substr($appointment->phone_number, 1, 10), // replace with mobile number ng sesendan
+                'from' => "MOVIDER"
+            ];
+            $response = Http::asForm()->post('https://api.movider.co/v1/sms', $data);
+          Mail::to($appointment->email)->send(new cancel($details));
+          $appointment->delete();
             toast()->warning('Warning', 'You deleted the request')->autoClose(3000)->animation('animate__fadeInRight', 'animate__fadeOutRight')->width('400px');
             return back();
         } catch (\Throwable $th) {

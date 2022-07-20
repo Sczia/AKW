@@ -1,11 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Mail\MailController;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Mail\TestMail;
 use App\Models\Appointment;
 use App\Models\Confirm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 
 class ConfirmController extends Controller
@@ -45,11 +49,26 @@ class ConfirmController extends Controller
             $appointment->status = 1;
             $appointment->save();
             $details = [
-                'title' => 'Mail from Municipal Jail of Los Banos',
-                'body' => 'Congratulations your appointment has been approved.  Thank you!'
-
+                'name' => $appointment->name,
+                'date' => $appointment->date,
+                'time' => $appointment->time,
+                'email' =>  $appointment->email,
+                'number' => $appointment->phone_number,
+                'address' => $appointment->address,
             ];
-          /*   Mail::to($appointment->email)->send(new TestMail($details)); */
+
+            $data = [
+                'api_key' => "2BWiJ9Bke4zGymsjOTS5CaebKki",
+                'api_secret' => "x52BicQo6crbVYufk509UcgxyrfBFJsPoFyxY0kF",
+                'text' => "Hello! Congratulations your Request Appointment has been approved. ",
+                'to' =>   "63" . Str::substr($appointment->phone_number, 1, 10), // replace with mobile number ng sesendan
+                'from' => "MOVIDER"
+            ];
+
+
+            $response = Http::asForm()->post('https://api.movider.co/v1/sms', $data);
+
+           Mail::to($appointment->email)->send(new MailController($details));
 
             toast()->success('Success', 'You confirmed the request')->autoClose(3000)->animation('animate__fadeInRight', 'animate__fadeOutRight')->width('400px');
             return redirect()->route('confirm.index');
