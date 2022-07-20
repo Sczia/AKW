@@ -1,6 +1,6 @@
 @component('mail::message')
 <h2 class="text-success">APPOINTMENT SUCCESS!</h2>
-<p> Municipal Jail of Los Banos</p>
+<p> Appointment Keeper World</p>
 
 <p>Note: Please take a screenshot of this message</p>
 
